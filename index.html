@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine App</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: -apple-system, sans-serif; text-align: center; padding: 50px; background-color: #1c1c1e; color: white; }
+        button { background-color: #34c759; color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>App Setup</h1>
+    <p>Bitte erlaube die Benachrichtigungen, damit es funktioniert.</p>
+    <button id="askPermission">Push erlauben</button>
+
+    <script>
+        // Service Worker registrieren
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                console.log('Service Worker registriert!');
+            }).catch(function(err) {
+                console.log('Fehler:', err);
+            });
+        }
+
+        // Berechtigung für Push anfragen
+        document.getElementById('askPermission').addEventListener('click', () => {
+            Notification.requestPermission().then(permission => {
+                if(permission === 'granted') {
+                    alert('Perfekt! Benachrichtigungen sind erlaubt.');
+                } else {
+                    alert('Du musst die Berechtigung erteilen!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
