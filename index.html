@@ -2,22 +2,36 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="whatsapp-icon-free-png.png.webp">
     <title>Benachrichtigungen</title>
     <!-- OneSignal SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-      window.OneSignal = window.OneSignal || [];
-      OneSignal.push(function() {
-        OneSignal.init({
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
           appId: "b96aba71-dd9c-4aae-ab61-0704fd66563c",
         });
       });
+
+      function aktivierePush() {
+        if (window.OneSignalDeferred) {
+          OneSignalDeferred.push(function(OneSignal) {
+            OneSignal.Notifications.requestPermission();
+          });
+        }
+      }
     </script>
+    <style>
+      body { font-family: -apple-system, sans-serif; text-align: center; padding: 50px 20px; background: #1c1c1e; color: white; }
+      button { background: #34c759; color: white; border: none; padding: 16px 28px; font-size: 18px; border-radius: 12px; font-weight: bold; margin-top: 25px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <h1>App bereit</h1>
-    <p>Deine App ist jetzt für Push-Benachrichtigungen konfiguriert.</p>
+    <p>Tippe auf den Button, um die Mitteilungen auf diesem iPhone zu erlauben:</p>
+    <button onclick="aktivierePush()">Mitteilungen erlauben</button>
 </body>
 </html>
