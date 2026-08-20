@@ -2,12 +2,50 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Steuerpult</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Benachrichtigung Steuerpult</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background-color: #1c1c1e; color: white; padding: 40px; max-width: 500px; margin: auto; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; border-radius: 8px; box-sizing: border-box; }
+        button { background-color: #34c759; color: white; border: none; padding: 15px; width: 100%; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #28a745; }
+    </style>
 </head>
 <body>
-    <h2>Benachrichtigung auslösen</h2>
-    <input type="text" id="titel" placeholder="Absender" value="WhatsApp">
-    <input type="text" id="nachricht" placeholder="Nachricht" value="Hallo!">
-    <button onclick="alert('Das Steuerpult ist jetzt bereit!')">Senden</button>
+    <h2>Fake Benachrichtigung</h2>
+    <label>Absender (Titel):</label>
+    <input type="text" id="titel" value="WhatsApp">
+
+    <label>Nachrichtentext:</label>
+    <textarea id="nachricht" rows="3">Hey! Wie geht's dir?</textarea>
+
+    <label>Ziel-App beim Antippen:</label>
+    <select id="appTyp">
+        <option value="whatsapp://">WhatsApp</option>
+        <option value="instagram://">Instagram</option>
+        <option value="tel://">Telefon</option>
+    </select>
+
+    <button onclick="sendePush()">Benachrichtigung auslösen</button>
+
+    <script>
+        function sendePush() {
+            const titel = document.getElementById('titel').value;
+            const nachricht = document.getElementById('nachricht').value;
+            const link = document.getElementById('appTyp-").value; // Korrigiert
+            
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.showNotification(titel, {
+                        body: nachricht,
+                        icon: 'whatsapp-icon-free-png.png.webp',
+                        badge: 'whatsapp-icon-free-png.png.webp',
+                        data: { url: link }
+                    });
+                });
+            }
+            alert('Signal gesendet!');
+        }
+    </script>
 </body>
 </html>
