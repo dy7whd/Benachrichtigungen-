@@ -1,0 +1,15 @@
+{
+  "name": "Benachrichtigungen",
+  "short_name": "Alerts",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#1c1c1e",
+  "theme_color": "#34c759",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
